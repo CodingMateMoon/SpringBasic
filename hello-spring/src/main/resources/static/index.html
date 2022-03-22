@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
+
+    <script>
+        $(document).ready(function() {
+            //첫 번째 버튼 이벤트
+            // alert("test");
+            var btn = document.getElementsByTagName("button");
+            console.log(btn);
+            // alert(btn.length);
+            for(var i=0; i < btn.length; i++) {
+                console.log("btn");
+                console.log(btn[i]);
+            }
+
+            $(document).on("click", "#btn3", function() {
+                // alert("두 번째 버튼을 클릭했습니다.");
+            });
+        });
+    </script>
+</head>
+<body>
+hello
+<a href="/hello">hello</a>
+<th:block th:each="num : ${#numbers.sequence(1,5)}">
+
+    <button th:id="'btn'+${num}" >${num}</button>
+</th:block>
+</body>
+</html>
+
