@@ -1,7 +1,9 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -12,6 +14,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     MemberService memberService = new MemberService();
+    MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+
+    // 이전에 실행한것 그대로 실행 : shift + F10
+    //각 테스트함수 진행할 때마다 clear후 다음 테스트함수를 진행해서 테스트함수를 실행하면서 변경된 데이터가 다른 테스트함수에 영향을 주는 것을 막습니다.
+    @AfterEach
+    public void afterEach(){
+
+        memberRepository.clearStore();
+    }
 
     @Test
     void 회원가입() {
@@ -19,6 +30,10 @@ class MemberServiceTest {
         //given 무언가가 주어졌을때
         Member member = new Member();
         member.setName("hello");
+        /* spring으로 저장하고 clear안할경우 다음 테스트에서 spring이름의 멤버 저장할 때 바로 에러가 날 수 있습니다.
+        member.setName("spring");
+
+         */
 
         //when 이걸로 실행했을때. 어떤것을 검증할것인가 생각합니다.
         Long saveId = memberService.join(member);
@@ -40,22 +55,34 @@ class MemberServiceTest {
 
         //when
 
+        // memberService.join(member2) 로직을 태울때 이 exception이 터지는것을 기대.
+        
+        memberService.join(member1);
+        // expression assertThrows 함수 앞에서 Intoduce Variable : ctrl + alt + v, 단축키 클릭 시 반환값 저장 변수 자동으로 생성합니다.
+        //assertThrows(IllegalStateException.class, () -> memberService.join(member2));
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.assertThrows");
+
         //중복 저장하므로 Exception이 발생해서 "이미 존재하는 회원입니다" 메세지가 띄워져야하는데 e.getMessage() 결과값이 "이미 존재하는 회원입니다"와 일치해야합니다
         // 기대값은 "이미 존재하는 회원입니다."인데 결과값이 "이미 존재하는 회원입니다"라고 나와서 '.' 차이로 Error가 발생했습니다.
         /**
          * org.opentest4j.AssertionFailedError:
-         * expected: "이미 존재하는 회원입니다."
+         * expected: "이미 존재하는 회원입니다.123"
          *  but was: "이미 존재하는 회원입니다"
-         * Expected :"이미 존재하는 회원입니다."
+         * Expected :"이미 존재하는 회원입니다.123"
          * Actual   :"이미 존재하는 회원입니다"
          */
+
+        /*
         memberService.join(member1);
         try{
             memberService.join(member2);
             fail();
         } catch(IllegalStateException e) {
-            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.123");
         }
+
+         */
 
         //then
     }
