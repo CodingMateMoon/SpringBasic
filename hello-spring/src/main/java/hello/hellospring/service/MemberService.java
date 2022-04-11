@@ -10,7 +10,13 @@ import java.util.Optional;
 // 회원 서비스 개발. Optional 활용 Null 처리
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    //private final MemberRepository memberRepository = new MemoryMemberRepository();
+    // MemberServiceTest에서 같은 인스턴스를 쓰기 위해 MemberRepository를 외부에서 받아서 사용하도록 변경합니다
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
     // 서비스 비즈니스에 가까운 용어 회원가입 이상해요->무슨 문제인지 찾아보자 . 비즈니스 의존적. Repository
     /**
      * 회원가입

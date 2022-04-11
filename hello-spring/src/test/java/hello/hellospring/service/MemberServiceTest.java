@@ -4,6 +4,7 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -13,8 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
 // 빌드될때 테스트코드는 실제 코드에 포함되지 않음
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
+    MemberService memberService;
     MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+
+    // 테스트 독립적 실행. 각 테스트 실행전 MemoryMemberRepository를 만들고 MemberService에 넣어줍니다.
+    // 이를 통해 같은 MemoryMemberRepository 사용 가능. DI(Dependency Injection) 개념
+    @BeforeEach
+    public void beforeEach(){
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
 
     // 이전에 실행한것 그대로 실행 : shift + F10
     //각 테스트함수 진행할 때마다 clear후 다음 테스트함수를 진행해서 테스트함수를 실행하면서 변경된 데이터가 다른 테스트함수에 영향을 주는 것을 막습니다.
