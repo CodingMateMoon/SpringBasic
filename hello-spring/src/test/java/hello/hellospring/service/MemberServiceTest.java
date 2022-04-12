@@ -70,7 +70,8 @@ class MemberServiceTest {
         // expression assertThrows 함수 앞에서 Intoduce Variable : ctrl + alt + v, 단축키 클릭 시 반환값 저장 변수 자동으로 생성합니다.
         //assertThrows(IllegalStateException.class, () -> memberService.join(member2));
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
-        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.assertThrows");
+        //assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.assertThrows");
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다");
 
         //중복 저장하므로 Exception이 발생해서 "이미 존재하는 회원입니다" 메세지가 띄워져야하는데 e.getMessage() 결과값이 "이미 존재하는 회원입니다"와 일치해야합니다
         // 기대값은 "이미 존재하는 회원입니다."인데 결과값이 "이미 존재하는 회원입니다"라고 나와서 '.' 차이로 Error가 발생했습니다.

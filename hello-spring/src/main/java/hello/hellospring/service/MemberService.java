@@ -3,17 +3,27 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 // 회원 서비스 개발. Optional 활용 Null 처리
+
+@Service
 public class MemberService {
 
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
     // MemberServiceTest에서 같은 인스턴스를 쓰기 위해 MemberRepository를 외부에서 받아서 사용하도록 변경합니다
     private final MemberRepository memberRepository;
 
+    /** 멤버서비스는 멤버리포지토리가 필요
+     * @Service를 보고 스프링 컨테이너에 등록하면서 생성자 호출.
+     * 생성자에 있는 @Autowired를 보고 스프링 컨테이너에 있는 MemberRepository를 넣어줍니다. MemberRepository는 MemoryMemberRespository가 구현하고 있으므로
+     * 해당 리포지토리 구현체를 서비스에 주입
+     */
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
