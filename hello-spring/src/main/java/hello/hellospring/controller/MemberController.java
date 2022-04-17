@@ -4,8 +4,11 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 /**
  * @Controller라는 어노테이션이 있으면 스프링 컨테이너라는 통에 멤버 컨트롤러 객체 생성해서 넣어둡니다
@@ -98,4 +101,18 @@ public class MemberController {
         // 회원가입이 끝나면 홈 화면을 띄워줍니다.
         return "redirect:/";
     }
+
+    /* 회원목록
+    List를 members라는 Key로 Model에 담아서 members/List 화면으로 넘깁니다.
+    members : List<Member>
+    서버를 재기동하면 데이터는 초기화됩니다. 메모리안에 있기 때문에 서버를 내리면 회원 데이터가 다 사라집니다. 이 데이타들을 파일이나
+    데이터베이스에 저장해야합니다. DB 활용하기.
+    * */
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
+    }
+
 }

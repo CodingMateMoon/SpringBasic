@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 템플릿 엔진 동작 과정
+            tag들은 그대로 두고 템플릿언어에서 ${members}를 읽어들입니다. 모델안의 members를 꺼내는 것입니다.
+            th:each는 List<Member>에 대해 loop를 돌리는 것입니다. member 객체를 하나씩 꺼내고 getter를 통해
+            id, name 등 값을 가져온 뒤 출력합니다.
+            -->
+            <tr th:each="member : ${members}">
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
