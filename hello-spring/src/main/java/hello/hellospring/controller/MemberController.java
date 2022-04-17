@@ -81,10 +81,17 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
+    /*
+    등록 버튼을 누르면 form action url의 위치에 post방식으로 요청을 보냅니다.
+    post 매핑은 데이터를 Form 같은 형식에 넣어서 전달할 때 주로 사용합니다. Get은 조회할 때 주로 사용합니다.
+    url로 요청이 들어올 때 spring은 input 태그의 name 속성을 보고 MemberForm 클래스의 멤버 변수 name에 속성값을 입력합니다.
+    * */
     @PostMapping("/members/new")
     public String create(MemberForm form) {
         Member member = new Member();
         member.setName(form.getName());
+
+        System.out.println("member = " + member.getName());
 
         memberService.join(member);
 

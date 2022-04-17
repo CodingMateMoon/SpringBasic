@@ -2,6 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="container">
+
+    <!--
+    등록 버튼을 누르면 form action url의 위치에 post방식으로 요청을 보냅니다.
+    post 매핑은 데이터를 Form 같은 형식에 넣어서 전달할 때 주로 사용합니다. Get은 조회할 때 주로 사용합니다.
+    -->
     <form action="/members/new" method="post">
         <div class="form-group">
             <label for="name">이름</label>
