@@ -103,7 +103,7 @@ public class MemberController {
     }
 
     /* 회원목록
-    List를 members라는 Key로 Model에 담아서 members/List 화면으로 넘깁니다.
+    List를 members라는 Key로 Model에 담아서 members/memberList 화면으로 넘깁니다.
     members : List<Member>
     서버를 재기동하면 데이터는 초기화됩니다. 메모리안에 있기 때문에 서버를 내리면 회원 데이터가 다 사라집니다. 이 데이타들을 파일이나
     데이터베이스에 저장해야합니다. DB 활용하기.
