@@ -1,17 +1,17 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
-
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 // 회원 respository 테스트 케이스 작성
+/*
+* 순수한 자바코드로만 이루어지지 않은 경우 예를 들어 데이터베이스 커넥션 정보의 경우 스프링이 들고있으니까 스프링과 엮어서 테스트하는 방법이 필요합니다.
+* */
 public class MemoryMemberRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
