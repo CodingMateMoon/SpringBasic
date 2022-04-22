@@ -1,14 +1,13 @@
 package hello.hellospring;
 
 
-import hello.hellospring.repository.JdbcTemplateMemberRepository;
+import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
 
 /**
  * 스프링이 뜰 때 Configuration을 읽고 스프링 빈을 등록하라는 뜻이네 라고 스프링이 인식합니다.
@@ -27,16 +26,26 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
 
-    /* spring boot가 application.properties에 작성된 datasource url, driver 등의 정보등을 보고
-    db와 연결할 수 있는 DataSource를 만들어줍니다(자체적으로 Bean 생성). @Autowired이 있으면 spring을 통해 datasource를 주입받을 수 있습니다(DI).
+    /*
+    원래 스펙에서는 EntityManager 위에 @PersistenceContext을 달아주어야하지만 스프링에서 자동적으로 DI해줍니다.
     * */
+
+    private EntityManager em;
+
+    public SpringConfig(EntityManager em) {
+        this.em = em;
+    }
+
+    /* spring boot가 application.properties에 작성된 datasource url, driver 등의 정보등을 보고
+    db와 연결할 수 있는 DataSource를 만들어줍니다(자체적으로 Bean 생성). @Autowired가 있으면 spring을 통해 datasource를 주입받을 수 있습니다(DI).
+
     private DataSource dataSource;
 
     @Autowired
     public SpringConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
+    * */
 
     /**
      * memberService 로직을 호출해서 스프링 컨테이너에 스프링 빈을 등록합니다.
@@ -69,6 +78,7 @@ public class SpringConfig {
 
         //return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+//        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 }

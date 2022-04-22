@@ -2,9 +2,8 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +22,15 @@ import java.util.Optional;
  * Consider defining a bean of type 'hello.hellospring.service.MemberService' in your configuration 오류가 발생합니다
  */
 
+
+/*
+스프링은 해당 클래스의 메서드를 실행할 때 트랜잭션을 시작하고, 메서드가 정상 종료되면 트랜잭션을
+커밋합니다. 만약 런타임 예외가 발생하면 롤백합니다.
+JPA 사용 시 주의점. JPA는 모든 데이터 변경이 Transaction안에서 실행되어야합니다. 그래서 @Transacional이 있어야합니다. 서비스계층에 @Transaction을 명시합니다.
+회원가입할 때 필요하니까 public Long join(Member member) { 함수 위에만 @Transaction을 붙여주어도 됩니다.
+* */
+
+@Transactional
 public class MemberService {
 
     //private final MemberRepository memberRepository = new MemoryMemberRepository();

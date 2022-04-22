@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -59,12 +60,13 @@ class MemberServiceIntegrationTest {
      */
 
     @Test
-//    @Commit 와 같은 옵션이 있습니다.
+    @Commit
+//   상단 클래스위에 @Transactinal이 있는 경우 기본적으로 Test후 롤백을 하는데 @Commit을 쓰면 테스트 결과를 커밋할 수 있습니다.
     void 회원가입() {
 
         //given 무언가가 주어졌을때. 값이 이미있는 경우 validateDuplicateMember 함수를 호출해서 "이미 존재하는 회원입니다." 메세지를 띄웁니다.
         Member member = new Member();
-        member.setName("spring");
+        member.setName("hello");
         /* spring으로 저장하고 clear안할경우 다음 테스트에서 spring이름의 멤버 저장할 때 바로 에러가 날 수 있습니다.
         member.setName("spring");
 
@@ -76,7 +78,7 @@ class MemberServiceIntegrationTest {
         //then 결과가 이것이 나와야합니다.
         // 우리가 저장한 것이 "hello" 이름을 가진 객체가 맞는지 확인합니다.
         Member findMember = memberService.findOne(saveId).get();
-        Assertions.assertThat(member.getName()).isEqualTo(findMember.getName());
+        Assertions.assertThat(findMember.getName()).isEqualTo(member.getName());
     }
 
     @Test
