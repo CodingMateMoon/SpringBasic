@@ -1,14 +1,11 @@
 package hello.hellospring;
 
 
-import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.EntityManager;
 
 /**
  * 스프링이 뜰 때 Configuration을 읽고 스프링 빈을 등록하라는 뜻이네 라고 스프링이 인식합니다.
@@ -110,6 +107,7 @@ public class SpringConfig {
      * 	- 객체지향의 다형성 개념을 활용하면 기능을 변경해도 애플리케이션 전체를 수정할 필요없이 조립하는 코드(Configuration)만 변경하면 됩니다. 실제 애플리케이션 동작에 필요한 코드는 건드릴 필요가 없습니다.
      * 스프링 DI(Dependencies Injection)을 사용하면 기존 코드를 손대지 않고 설정만으로 구현 클래스를 변경할 수 있습니다.
      */
+    /*
     @Bean
     public MemberRepository memberRepository() {
 
@@ -118,4 +116,6 @@ public class SpringConfig {
 //        return new JdbcTemplateMemberRepository(dataSource);
         return new JpaMemberRepository(em);
     }
+
+     */
 }
