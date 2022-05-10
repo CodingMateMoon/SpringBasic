@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 /**
- * @Controller라는 어노테이션이 있으면 스프링 컨테이너라는 통에 멤버 컨트롤러 객체 생성해서 넣어둡니다
+ * @Controller라는 어노테이션이 있으면 스프링 컨테이너라는 통에 멤버 컨트롤러 객체를 생성해서 넣어둡니다
  * 스프링 컨테이너에서 스프링 빈 관리 . helloController 등
  */
 @Controller
@@ -70,6 +70,7 @@ public class MemberController {
      * MemberService는 순수한 자바코드인 상태. @Service를 넣어주어야합니다. @Service가 있으면 스프링 컨테이너에 등록. @Repository도 마찬가지.
      * Controller를 통해서 외부 요청을 받고 Service에서 비즈니스 로직을 만들고 Repository에서 데이터를 저장하는 정형화된 패턴으로 구성
      * 생성자에서 @Autowire를 쓰면 멤버컨트롤러가 생성이 될 때 스프링 빈에 등록되어 있는 멤버 서비스 객체를 가져다 넣어줍니다. DI. 의존관계 주입. 밖에서 스프링이 넣어주는 느낌.
+     * 생성자의 파라미터로 서비스 객체를 받아서 Controller의 멤버변수 private  MemberService memberService에 넣어줍니다.
      */
 
     /** 1. 생성자를 통해서 주입하는 방법
