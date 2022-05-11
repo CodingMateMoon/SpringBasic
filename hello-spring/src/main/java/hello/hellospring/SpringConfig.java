@@ -1,6 +1,7 @@
 package hello.hellospring;
 
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +116,20 @@ public class SpringConfig {
 //        return new JdbcMemberRepository(dataSource);
 //        return new JdbcTemplateMemberRepository(dataSource);
         return new JpaMemberRepository(em);
+    }
+
+     */
+
+    /*
+    @Component
+    Component 스캔을 사용할 수도 있지만 Aop같은 경우는 @Configuration SpringConfig 설정 파일에서 스프링 빈으로 등록해서 사용하는 것을 선호합니다.
+    평범한 service repository는 정형화돼서 만들 수 있지만 AOP의 경우 특별하게 쓸 수 있음을 보여줄 수 있습니다.
+    스프링 빈에 직접 등록해서 AOP를 쓴다는 것을 알 수 있습니다.
+    * */
+    /*
+    @Bean
+    public TimeTraceAop timeTraceAop() {
+        return new TimeTraceAop();
     }
 
      */

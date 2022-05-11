@@ -34,7 +34,7 @@ public class MemberController {
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
-
+        System.out.println("memberService = " + memberService.getClass());
         /**
          * setter Injection 사용 시 아무 개발자나 호출할 수 있도록 열려있게됩니다. 개발은 호출하지 않아야할 메서드는 호출되지 않도록 막는 것이 좋습니다.
         memberService.setMemberRepository();
